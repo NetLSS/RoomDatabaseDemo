@@ -8,9 +8,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Observer
 import com.lilcode.example.roomdatabasedemo.Product
 import com.lilcode.example.roomdatabasedemo.R
 import com.lilcode.example.roomdatabasedemo.databinding.MainFragmentBinding
+import java.util.*
 
 class MainFragment : Fragment() {
 
@@ -73,8 +76,25 @@ class MainFragment : Fragment() {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun initObserver() {
-        TODO("Not yet implemented")
+        viewModel.getAllProducts()?.observe(viewLifecycleOwner, Observer { products ->
+            products?.let {
+                adapter?.setProductList(it)
+            }
+        })
+
+        viewModel.getSearchResults().observe(this.viewLifecycleOwner, Observer { products ->
+            products?.let {
+                if (it.isNotEmpty()) {
+                    binding.productID.text = String.format(Locale.US, "%d", it[0].id)
+                    binding.productName.setText(it[0].productName)
+                    binding.productQuantity.setText(String.format(Locale.US, "%d", it[0].quantity))
+                } else {
+                    binding.productID.text = "No Match"
+                }
+            }
+        })
     }
 
     private fun initRecycler() {
