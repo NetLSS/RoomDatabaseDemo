@@ -22,7 +22,7 @@ class ProductRepository(application: Application) {
     }
 
     fun insertProduct(newProduct: Product) {
-        coroutineScope.launch(Dispatchers.IO){
+        coroutineScope.launch(Dispatchers.IO) {
             asyncInsert(newProduct)
         }
     }
@@ -32,7 +32,7 @@ class ProductRepository(application: Application) {
     }
 
     fun deleteProduct(name: String) {
-        coroutineScope.launch(Dispatchers.IO){
+        coroutineScope.launch(Dispatchers.IO) {
             asyncDelete(name)
         }
     }
@@ -47,11 +47,8 @@ class ProductRepository(application: Application) {
         }
     }
 
-    private suspend fun asyncFind(name: String): Deferred<List<Product>?> {
-        coroutineScope.async(Dispatchers.IO){
+    private suspend fun asyncFind(name: String): Deferred<List<Product>?> =
+        coroutineScope.async(Dispatchers.IO) {
             return@async productDao?.findProduct(name)
         }
-    }
-
-
 }
