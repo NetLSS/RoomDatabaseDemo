@@ -12,4 +12,9 @@ data class Product(
     @ColumnInfo(name = "productName") var productName: String? = null,
     var quantity: Int = 0 // SQL 쿼리에서 사용하지 않으므로 애노테이션 지정 x.
 ) {
+    constructor(name: String, quantity: Int) : this() {
+        this.productName = name
+        this.quantity = quantity
+    }
+
 }
