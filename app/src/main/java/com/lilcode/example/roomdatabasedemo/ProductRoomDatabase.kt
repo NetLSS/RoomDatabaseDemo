@@ -12,6 +12,7 @@ abstract class ProductRoomDatabase : RoomDatabase() {
 
     companion object {
 
+        @Volatile
         private var INSTANCE: ProductRoomDatabase? = null
 
         internal fun getDatabase(context: Context): ProductRoomDatabase? {
