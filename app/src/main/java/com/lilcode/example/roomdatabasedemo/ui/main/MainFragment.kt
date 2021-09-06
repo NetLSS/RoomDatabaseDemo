@@ -10,6 +10,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.lilcode.example.roomdatabasedemo.Product
 import com.lilcode.example.roomdatabasedemo.R
 import com.lilcode.example.roomdatabasedemo.databinding.MainFragmentBinding
@@ -39,8 +41,6 @@ class MainFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        //viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-        // TODO: Use the ViewModel
 
         initListener()
         initObserver()
@@ -98,7 +98,9 @@ class MainFragment : Fragment() {
     }
 
     private fun initRecycler() {
-        TODO("Not yet implemented")
+        adapter = ProductListAdapter(R.layout.product_list_item)
+        binding.productRecycler.layoutManager = LinearLayoutManager(context)
+        binding.productRecycler.adapter = adapter
     }
 
 }
